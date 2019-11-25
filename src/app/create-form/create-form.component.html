@@ -1,0 +1,24 @@
+<mat-card>
+    <form [formGroup]="form">
+        <div class="row" formGroupName="types">
+            <mat-checkbox formControlName="metar">METAR</mat-checkbox>
+            <mat-checkbox formControlName="sigmet">SIGMET</mat-checkbox>
+            <mat-checkbox formControlName="taf">TAF</mat-checkbox>
+            <mat-error *ngIf="form.controls.types.dirty && form.controls.types.errors as errors">
+                {{errors.missingType}}
+            </mat-error>
+        </div>
+        <app-auto-chips [allItems]="airports$ | async" formControlName="airports"
+                        placeholder="Airports"></app-auto-chips>
+        <app-auto-chips [allItems]="countries$ | async" formControlName="countries"
+                        placeholder="Countries"></app-auto-chips>
+        <mat-error *ngIf="(form.controls.airports.dirty || form.controls.countries.dirty) && form.errors as errors">
+            {{errors.missingData}}
+        </mat-error>
+
+        <button (click)="onSubmit()" [disabled]="loading || form.invalid" mat-raised-button type="button">Create
+            briefing
+        </button>
+    </form>
+</mat-card>
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>

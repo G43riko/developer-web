@@ -1,0 +1,50 @@
+<div #tableWrapper>
+    <ng-container *ngIf="appService.data$ | async as data">
+        <mat-card [class.hidden]="!data.length">
+            <mat-card-title>
+                <h2>Results</h2>
+            </mat-card-title>
+            <mat-card-content class="content mat-elevation-z8">
+                <table [dataSource]="data" class="mat-elevation-z8" mat-table multiTemplateDataRows>
+                    <ng-container matColumnDef="stationId">
+                        <th *matHeaderCellDef mat-header-cell> Place</th>
+                        <td *matCellDef="let element" mat-cell> {{getFirstColumnValue(element)}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="reportTime">
+                        <th *matHeaderCellDef mat-header-cell> Time</th>
+                        <td *matCellDef="let element"
+                            mat-cell> {{(element.reportTime || "") | date:"dd.MM.yyyy hh:mm" }} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="textHTML">
+                        <th *matHeaderCellDef mat-header-cell> Content</th>
+                        <td *matCellDef="let element" [innerHTML]="element.text | highlightText" mat-cell></td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="expandedDetail">
+                        <td *matCellDef="let element" [attr.colspan]="displayedColumns.length" mat-cell>
+
+                            <div [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
+                                 class="example-element-detail">
+                                <p><strong>Reception time</strong>: {{element.receptionTime | date:"dd.MM.yyyy hh:mm"}}
+                                    <br></p>
+                                <p><strong>Report type</strong>: {{element.reportType}}<br></p>
+                            </div>
+                        </td>
+                    </ng-container>
+
+
+                    <tr (click)="onClickOnRow(row)" *matRowDef="let row; columns: displayedColumns;"
+                        [class.example-expanded-row]="expandedElement === row"
+                        [class.title]="isTitle(row)"
+                        class="example-element-row"
+                        mat-row></tr>
+                    <tr *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row" mat-row></tr>
+                </table>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+
+</div>

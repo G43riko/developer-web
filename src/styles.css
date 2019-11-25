@@ -1,0 +1,23 @@
+/* Add application styles & imports to this file! */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+.hidden {
+  display: none !important;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+.full-width {
+  width: 100%;
+}
+.blue {
+  color: blue;
+}
+.red {
+  color: red;
+}

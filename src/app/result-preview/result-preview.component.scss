@@ -1,0 +1,43 @@
+.content {
+  overflow: auto;
+  max-height: 100vh;
+}
+
+table {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 2em;
+
+  tr.title {
+    background: #ff4081;
+
+    td {
+      font-weight: bold;
+    }
+  }
+
+  tr.example-detail-row:not(.title) {
+    height: 0;
+  }
+
+  tr.example-element-row:not(.example-expanded-row):not(.title):hover {
+    background: #777;
+  }
+
+  tr.example-element-row:not(.example-expanded-row):not(.title):active {
+    background: #efefef;
+  }
+
+  .example-element-row td {
+    border-bottom-width: 0;
+    white-space: nowrap;
+    padding-left: 2em;
+  }
+
+  .example-element-detail {
+    overflow: hidden;
+    display: flex;
+    justify-content: space-around;
+  }
+
+}
